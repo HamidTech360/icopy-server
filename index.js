@@ -1,26 +1,25 @@
 const express = require('express')
 const app = express()
-const config = require('config')
 const mongoose = require('mongoose')
-const user = require('./routes/user')
-const auth = require('./routes/auth')
-const upload = require('./routes/upload')
+const upload = require('./routes/uploadRoutes')
+const admin = require('./routes/authRoutes')
 const cors = require('cors')
+const {PORT, DATABASE_URL, JWT_SECRET} = require('./config')
 
-if(!config.get('jwtPrivateKey')){
+if(!JWT_SECRET){
     console.error('No Jwt Provided');
     process.exit(1)
 }
 
-mongoose.connect('mongodb://localhost/blog')
+mongoose.connect(DATABASE_URL)
 .then(()=>console.log('connection successfuly established'))
 .catch(()=>console.log('Failed to establish connection'))
 
 app.use(cors())
 app.use(express.json())
-app.use('/api/user', user)
-app.use('/api/auth', auth)
 app.use('/api/upload', upload)
+app.use('/api/admin', admin)
 
-const port = process.env.port || 3001
+
+const port = process.env.port || PORT
 app.listen(port, ()=>console.log(`listening to port ${port}`))

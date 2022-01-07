@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Joi = require('joi-browser')
 
-const userSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
     username:{
         type:String,
         required:true
@@ -16,18 +16,17 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-function ValidateUser (user){
+function ValidateAdmin (user){
     const schema = {
         username: Joi.string().min(5).required(),
         email: Joi.string().email().required(),
-        password: Joi.string().min(2).required(),
-        c_password:Joi.string()
-       
+        password: Joi.string().min(2).required()
+ 
     }
 
     return Joi.validate(user, schema)
 }
-const UserModel = mongoose.model('user',userSchema)
+const AdminModel = mongoose.model('admin',adminSchema)
 
-module.exports.ValidateUser = ValidateUser
-module.exports.UserModel= UserModel
+module.exports.ValidateAdmin = ValidateAdmin
+module.exports.AdminModel= AdminModel
