@@ -17,8 +17,8 @@ exports.createAdmin = async (req, res)=>{
         password:req.body.password
     })
 
-    const salt = await bcrypt.genSalt(10)
-    newAdmin.password = await bcrypt.hash(newAdmin.password, salt)
+    // const salt = await bcrypt.genSalt(10)
+    // newAdmin.password = await bcrypt.hash(newAdmin.password, salt)
 
     try{
         const saveAdmin = await newAdmin.save()
@@ -39,11 +39,13 @@ exports.authAdmin = async (req, res)=>{
         const getAdmin = await AdminModel.findOne({email:req.body.email})
         if(!getAdmin) return res.status(403).send('Admin not found')
 
-        const checkPassword = await bcrypt.compare(req.body.password, getAdmin.password)
+        // const checkPassword = await bcrypt.compare(req.body.password, getAdmin.password)
+         const checkPassword = await AdminModel.findOne({password:req.body.password})
         if(!checkPassword) return res.status(401).send('Invalid password')
 
         const token = jwt.sign({...getAdmin}, JWT_SECRET)
         res.json({
+            status:'success',
             message:"user authorized",
             token:token,
         })
@@ -61,14 +63,28 @@ exports.editAdmin = async (req, res)=>{
 
     try{
         console.log(req.user);
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        // const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const admin = await AdminModel.findOneAndUpdate(
             {_id:req.user._doc._id},
-            {password:hashedPassword, email:req.body.email},
+            {password:req.body.password, email:req.body.email},
             {new:true}
         )
         res.json({
+            status:'success',
             message:'Record updated',
+            data:admin
+        })
+    }catch(ex){
+        res.status(400).send(ex)
+    }
+}
+
+exports.getAdmin = async (req, res)=>{
+    try{
+        const admin = await AdminModel.findById(req.user._doc._id)
+        console.log(req.user)
+        res.json({
+            status:'success',
             data:admin
         })
     }catch(ex){

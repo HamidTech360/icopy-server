@@ -1,14 +1,25 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
-const {createPost} = require('../controllers/upload')
+const auth = require('../middlewares/auth')
+const {
+    createPost,
+     getPosts, 
+     editPost, 
+     deletePost, 
+     getSinglePost
+} = require('../controllers/upload')
 
 
 const upload = multer({dest:"./uploads/"})
 
 
 
-router.post('/create',upload.single('file'), createPost)
+router.post('/post',upload.single('file'),auth, createPost)
+router.get('/post/:id', getSinglePost)
+router.get('/post', getPosts)
+router.put('/post/:id', auth, editPost)
+router.delete('/post/:id',auth, deletePost)
 
 // router.post('/', upload.single('file'), async(req, res)=>{
 

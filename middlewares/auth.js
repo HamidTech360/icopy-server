@@ -2,6 +2,8 @@ const {JWT_SECRET} = require('../config')
 const jwt = require('jsonwebtoken')
 function auth (req, res, next){
     const token = req.header('Authorization')
+    
+    
     if(!token) return res.status(403).send('Access denied')
 
     try{
