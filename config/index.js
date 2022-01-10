@@ -3,10 +3,10 @@ module.exports = (()=>{
     const env = process.env.NODE_ENV
     if(env == "production"){
         return{
-            DATABASE_URL:'mongodb+srv://hamid:olalekan2019@icopycluster.58nob.mongodb.net/myFirstDatabase?retryWrites=true',
-            JWT_SECRET:'12345',
+            DATABASE_URL:process.env.DATABASE_URL,
+            JWT_SECRET:process.env.JWT_SECRET,
             EMAIL:'owolabihammed2001@gmail.com',
-            PASSWORD:'olalekan2019...',
+            PASSWORD:process.env.EMAIL_PASSWORD,
             PORT:process.env.PORT
             
         }
