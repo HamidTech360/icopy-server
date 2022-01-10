@@ -45,7 +45,7 @@ exports.getPosts = async (req, res)=>{
         res.json({
             status:'success',
             message:'Posts retrieved successfully',
-            image_dir:'http://localhost:3001/static/',
+            image_dir:'https://icopy-server.herokuapp.com/static/',
             data:allPosts
         })
     }catch(ex){
@@ -59,7 +59,7 @@ exports.getSinglePost = async (req, res)=>{
         res.json({
             status:'success',
             message:'Posts retrieved successfully',
-            image_dir:'http://localhost:3001/static/',
+            image_dir:'https://icopy-server.herokuapp.com/static/',
             data:post
         })
     }catch(ex){
