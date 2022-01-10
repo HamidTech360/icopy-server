@@ -6,7 +6,8 @@ module.exports = (()=>{
             DATABASE_URL:'mongodb://localhost/icopy-prod',
             JWT_SECRET:'12345',
             EMAIL:'owolabihammed2001@gmail.com',
-            PASSWORD:'olalekan2019...'
+            PASSWORD:'olalekan2019...',
+            PORT:process.env.PORT
         }
     }
     return{
