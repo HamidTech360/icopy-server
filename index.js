@@ -25,5 +25,5 @@ app.use('/api/admin', admin)
 app.use('/api/comment', comment)
 
 
-const port = process.env.port || PORT
+const port = process.env.PORT || PORT
 app.listen(port, ()=>console.log(`listening to port ${port}`))
