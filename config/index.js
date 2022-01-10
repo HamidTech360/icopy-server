@@ -5,8 +5,8 @@ module.exports = (()=>{
         return{
             DATABASE_URL:process.env.DATABASE_URL,
             JWT_SECRET:process.env.JWT_SECRET,
-            EMAIL:'owolabihammed2001@gmail.com',
-            PASSWORD:process.env.EMAIL_PASSWORD,
+            EMAIL:'hamid@gtarealestatealade.com.ng',
+            PASSWORD:'olalekan2019',
             PORT:process.env.PORT
             
         }
