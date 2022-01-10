@@ -92,6 +92,21 @@ exports.getAdmin = async (req, res)=>{
     }
 }
 
+exports.getAdminBasic = async (req, res)=>{
+
+    try{
+        const admin = await AdminModel.find()
+        admin.map(el=>el.password="")
+        res.json({
+            status:'success',
+            data:admin
+        })
+    }catch(ex){
+        res.status(400).send(ex)
+    }
+}
+
+
 function Validate (user){
     const schema = {
         email: Joi.string().required(),

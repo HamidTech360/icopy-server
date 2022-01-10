@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const upload = require('./routes/uploadRoutes')
 const admin = require('./routes/authRoutes')
 const comment = require('./routes/commentRoute')
+const mail= require('./routes/mailRoute')
 const cors = require('cors')
 const {PORT, DATABASE_URL, JWT_SECRET} = require('./config')
 const path = require('path')
@@ -23,7 +24,7 @@ app.use(express.json())
 app.use('/api/upload', upload)
 app.use('/api/admin', admin)
 app.use('/api/comment', comment)
-
+app.use('/api/mail', mail)
 
 // const port = process.env.PORT || PORT
 app.listen(PORT, ()=>console.log(`listening to port ${PORT}`))
