@@ -4,10 +4,11 @@ module.exports = (()=>{
     if(env == "production"){
         return{
             DATABASE_URL:process.node.DATABASE_URL,
-            JWT_SECRET:process.node.JWT_SECRET,
+            JWT_SECRET:'12345',
             EMAIL:'owolabihammed2001@gmail.com',
             PASSWORD:process.node.EMAIL_PASSWORD,
             PORT:process.env.PORT
+            
         }
     }
     return{
