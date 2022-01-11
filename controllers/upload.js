@@ -1,25 +1,23 @@
 const response = {}
 const fs = require ('fs')
 const {ValidatePost, PostModel}= require('../models/post_model')
-
+const {cloudinary} = require('../utils/cloudinary')
 exports.createPost = async (req, res)=>{
-        let rename;
+      
         const {error} = ValidatePost(req.body)
         if(error) return res.status(400).send(error.details[0].message)  
        try{
-                console.log(req.file);
-                
-                const fileType = req.file.mimetype.split("/")[1]
-                rename = `${req.file.filename}.${fileType}`|| 'none'
-                console.log(rename);
-                fs.rename(`./uploads/${req.file.filename}`, `./uploads/${rename}`, function(){
-                    response.imgUploaded = true
-                })
-            
-           console.log(rename);
+           console.log(req.body.file);
+
+           const uploadResponse = await cloudinary.uploader.upload(req.body.file,{
+               upload_preset:'icopy_uploads'
+           })
+
+        //    console.log(uploadResponse);
+           const imgUrl = uploadResponse.secure_url
            
             const newPost = new PostModel({
-                filename:rename,
+                filename:imgUrl?imgUrl:'none',
                 body:req.body.body,
                 title:req.body.title,
                 category:req.body.category
@@ -45,7 +43,6 @@ exports.getPosts = async (req, res)=>{
         res.json({
             status:'success',
             message:'Posts retrieved successfully',
-            image_dir:'https://icopy-server.herokuapp.com/static/',
             data:allPosts
         })
     }catch(ex){

@@ -28,7 +28,7 @@ function ValidatePost (post){
         category:Joi.string().required(),
         title:Joi.string().required(),
         body:Joi.string().required(),
-        filename:Joi.string()
+        file:Joi.string()
     }
     return Joi.validate(post, schema)
 }
