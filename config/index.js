@@ -7,7 +7,8 @@ module.exports = (()=>{
             JWT_SECRET:process.env.JWT_SECRET,
             EMAIL:'hamid@gtarealestatealade.com.ng',
             PASSWORD:'olalekan2019',
-            PORT:process.env.PORT
+            PORT:process.env.PORT,
+            
             
         }
     }
