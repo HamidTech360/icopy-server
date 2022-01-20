@@ -49,7 +49,7 @@ exports.sendMail = async (req, res)=>{
         // setup e-mail data with unicode symbols
         let mailOptions = {
             from    : user_name, // sender address
-            to      : email_to, // list of receivers
+            to      : admin_email, // list of receivers
             subject : 'Hello ✔', // Subject line
             text    : 'Hello world ?', // plaintext body
             html    : '<b>Hello Haamid ?</b>', // html body
