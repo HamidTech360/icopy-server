@@ -13,6 +13,7 @@ function Validate (item){
 }
 
 exports.sendMail = async (req, res)=>{
+    console.log(process.env);
     const {error} = Validate(req.body)
     if(error) return res.status(400).send(error.details[0].message)
     try{
@@ -46,13 +47,17 @@ exports.sendMail = async (req, res)=>{
             console.log('Access Token: %s', token.accessToken);
             console.log('Expires: %s', new Date(token.expires));
         });
+
         // setup e-mail data with unicode symbols
         let mailOptions = {
-            from    : user_name, // sender address
+            from    : req.body.email, // sender address
             to      : admin_email, // list of receivers
-            subject : 'Hello ✔', // Subject line
+            subject : `${req.body.name} sent you an email`, // Subject line
             text    : 'Hello world ?', // plaintext body
-            html    : '<b>Hello Haamid ?</b>', // html body
+            html    : `<div>
+                         ${req.body.mailBody}
+                         <div>connect with me at ${req.body.email}</div>
+                    </div>`, 
     
             auth : {
                 user         : user_name,
@@ -63,7 +68,26 @@ exports.sendMail = async (req, res)=>{
         };
 
         
-      //   let transporter = nodemailer.createTransport({
+ 
+
+      transporter.sendMail(mailOptions, async function(err, data){
+        if(err){
+     
+          res.status(500).send('SOmething failed in the server')
+        }else{
+
+          res.json({
+              status:'success',
+              message:'Email sent successfully'
+          })
+
+        }
+      })
+
+
+
+
+           //   let transporter = nodemailer.createTransport({
       //       service:'gmail',
       //       auth:{
       //         user: config.EMAIL,
@@ -82,20 +106,6 @@ exports.sendMail = async (req, res)=>{
       //         </div>`
       // }
 
-
-      transporter.sendMail(mailOptions, async function(err, data){
-        if(err){
-     
-          res.status(500).send('SOmething failed in the server')
-        }else{
-
-          res.json({
-              status:'success',
-              message:'Email sent successfully'
-          })
-
-        }
-      })
 
 
     }catch(ex){
