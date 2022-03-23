@@ -86,28 +86,6 @@ exports.sendMail = async (req, res)=>{
 
 
 
-
-           //   let transporter = nodemailer.createTransport({
-      //       service:'gmail',
-      //       auth:{
-      //         user: config.EMAIL,
-      //         pass: config.PASSWORD
-      //       }
-      //     })
-
-          
-      // let mailOptions = {
-      //   from:'ICopy Story Blog',
-      //   to: admin_email,
-      //   subject: `${req.body.name} sent you an email`,
-      //   html:`<div>
-      //             ${req.body.mailBody}
-      //             <div>connect with me at ${req.body.email}</div>
-      //         </div>`
-      // }
-
-
-
     }catch(ex){
         res.status(500).send('Can"t send email.')
     }

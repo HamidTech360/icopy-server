@@ -7,7 +7,7 @@ exports.createPost = async (req, res)=>{
         const {error} = ValidatePost(req.body)
         if(error) return res.status(400).send(error.details[0].message)  
        try{
-           console.log(req.body.file);
+           //console.log(req.body.file);
 
            const uploadResponse = await cloudinary.uploader.upload(req.body.file,{
                upload_preset:'icopy_uploads'
@@ -33,6 +33,7 @@ exports.createPost = async (req, res)=>{
             )
        }catch(error){
            res.status(400).send(error)
+           console.log(error)
        }
 
 }
